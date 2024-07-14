@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User-Task-Page</title>
+</head>
+<body>
+    <h1>{{ user.Name }}</h1>
+    <h3>Tasks:</h3>
+    <ul>
+        {% for task in tasks %}
+            <li>
+                <div>{{ task.task_type }}: {{ task.task_details }}</div>
+                <form method="POST" action="">
+                    {% csrf_token %}
+                    <input type="hidden" name="task_id" value="{{ task.id }}">
+                    <label for="answer-{{ task.id }}">Answer:</label>
+                    <input type="text" name="user_answer" id="answer-{{ task.id }}" required autocomplete="off">
+                    <button type="submit">Submit</button>
+                </form>
+            </li>
+        {% empty %}
+            <li>No tasks found.</li>
+        {% endfor %}
+    </ul>
+    
+</body>
+</html>
